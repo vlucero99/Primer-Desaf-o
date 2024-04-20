@@ -1,5 +1,6 @@
 const fs = require ("fs"); //inicialización de file system
 
+
 let products = []; // creación de array de products vacío
 let pathFile ="./data/products.json" //definición de la ruta de los productos
 
@@ -92,3 +93,5 @@ const deleteProduct = async (id) => {
 // });
 
 deleteProduct(1);
+
+export default { addProducts, getProducts, getProductsById, updateProduct, deleteProduct}
