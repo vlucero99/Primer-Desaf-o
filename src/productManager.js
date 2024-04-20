@@ -1,12 +1,15 @@
-const fs = require ("fs"); //inicialización de file system
+import fs from "fs"
+import { fileURLToPath } from "url";
+import { dirname, join } from "path";
 
+const currentDir = dirname(fileURLToPath(import.meta.url));
+const pathFile = join (currentDir, 'data', 'products.json')
 
 let products = []; // creación de array de products vacío
-let pathFile ="./data/products.json" //definición de la ruta de los productos
+
 
 //creación de los productos
 const addProducts = async (title, description, price, thumbnail, code, stock) => {
-
     const newProduct = {
         id: products.length + 1,
         title,
@@ -37,7 +40,6 @@ const addProducts = async (title, description, price, thumbnail, code, stock) =>
 
 
 const getProducts = async () => {
-
     const productsJson = await fs.promises.readFile(pathFile, "utf8");
     products = JSON.parse(productsJson) || []; //se usa el parse para que no lo devuelva en formato string
 
@@ -92,6 +94,6 @@ const deleteProduct = async (id) => {
 //     code: "REM4",
 // });
 
-deleteProduct(1);
+// deleteProduct(1);
 
 export default { addProducts, getProducts, getProductsById, updateProduct, deleteProduct}
