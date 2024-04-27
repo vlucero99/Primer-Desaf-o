@@ -1,5 +1,5 @@
 import express from "express";
-import productManager from "./src/productManager.js"
+import router from "./src/routes/index";
 
 const app = express ();
 app.use(express.json());
@@ -27,27 +27,4 @@ app.get("/", (req, res) => {
     }
 })
 
-app.get("/products", async (req, res) => {
-    try {
-        const { limit } = req.query;
-        const products = await productManager.getProducts(limit);
-
-        res.status(200).json(products);
-    } catch (error) {
-        console.log(error);
-        return res.json({status: 500, response: error.message})
-    }
-});
-
-app.get("/products/:pid", async (req, res) => {
-    try {
-        const { pid } = req.params;
-
-        const product = await productManager.getProductById(parseInt(pid));
-
-        res.status(200).json(product);
-    } catch (error) {
-        console.log(error);
-        return res.json({status: 500, response: error.message})
-    }
-});
+app.use("/api", router);
